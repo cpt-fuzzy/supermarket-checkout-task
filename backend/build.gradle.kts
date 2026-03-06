@@ -2,6 +2,8 @@ plugins {
 	java
 	id("org.springframework.boot") version "4.0.3"
 	id("io.spring.dependency-management") version "1.1.7"
+	id("com.diffplug.spotless") version "8.3.0"
+	id("net.ltgt.errorprone") version "4.2.0"
 }
 
 group = "com.vangroenheesch"
@@ -25,7 +27,16 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-data-jpa-test")
 	testImplementation("org.springframework.boot:spring-boot-starter-validation-test")
 	testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
+	testImplementation("com.tngtech.archunit:archunit-junit5:1.4.1")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+	errorprone("com.google.errorprone:error_prone_core:2.43.0")
+}
+
+spotless {
+	java {
+		googleJavaFormat("1.35.0")
+		formatAnnotations()
+	}
 }
 
 tasks.withType<Test> {
