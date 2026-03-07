@@ -44,5 +44,7 @@ class HexagonalArchitectureTest {
           .should()
           .dependOnClassesThat()
           .resideInAnyPackage(INFRASTRUCTURE)
+          // TODO: Remove later when files are in place
+          .allowEmptyShould(true)
           .as("Application layer must not depend on infrastructure layer");
 }
