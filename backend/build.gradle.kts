@@ -24,6 +24,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 	implementation("org.springframework.boot:spring-boot-starter-webmvc")
+	runtimeOnly("com.h2database:h2")
 	testImplementation("org.springframework.boot:spring-boot-starter-data-jpa-test")
 	testImplementation("org.springframework.boot:spring-boot-starter-validation-test")
 	testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
@@ -37,6 +38,10 @@ spotless {
 		googleJavaFormat("1.35.0")
 		formatAnnotations()
 	}
+}
+
+tasks.named("check") {
+	dependsOn("spotlessCheck")
 }
 
 tasks.withType<Test> {
