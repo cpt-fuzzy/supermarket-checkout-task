@@ -4,6 +4,14 @@ import com.vangroenheesch.supermarket_checkout.application.product.ProductWithOf
 import com.vangroenheesch.supermarket_checkout.domain.model.Offer;
 import java.math.BigDecimal;
 
+/**
+ * Response object of a product
+ *
+ * @param sku SKU of the product
+ * @param name Readable name of the product
+ * @param price Price per unit
+ * @param offer Info of an applicable offer
+ */
 public record ProductResponse(String sku, String name, BigDecimal price, OfferInfo offer) {
 
   public record OfferInfo(int requiredQuantity, BigDecimal offerPrice, String description) {}
