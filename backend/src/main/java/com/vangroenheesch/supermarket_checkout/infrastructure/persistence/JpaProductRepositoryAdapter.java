@@ -1,9 +1,9 @@
 package com.vangroenheesch.supermarket_checkout.infrastructure.persistence;
 
+import module java.base;
+
 import com.vangroenheesch.supermarket_checkout.domain.model.Product;
 import com.vangroenheesch.supermarket_checkout.domain.port.ProductRepositoryPort;
-import java.util.List;
-import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
 @Repository

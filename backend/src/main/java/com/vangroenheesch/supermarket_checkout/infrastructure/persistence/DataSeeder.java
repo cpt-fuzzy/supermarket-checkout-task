@@ -1,9 +1,9 @@
 package com.vangroenheesch.supermarket_checkout.infrastructure.persistence;
 
+import module java.base;
+
 import com.vangroenheesch.supermarket_checkout.domain.model.Offer;
 import jakarta.transaction.Transactional;
-import java.math.BigDecimal;
-import java.util.List;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 

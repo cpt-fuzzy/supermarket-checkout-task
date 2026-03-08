@@ -3,9 +3,9 @@ package com.vangroenheesch.supermarket_checkout.domain.model;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Named.named;
 
+import module java.base;
+
 import com.vangroenheesch.supermarket_checkout.domain.exception.DomainValidationException;
-import java.math.BigDecimal;
-import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;

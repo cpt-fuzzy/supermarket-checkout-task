@@ -4,12 +4,12 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import module java.base;
+
 import com.vangroenheesch.supermarket_checkout.domain.model.Offer;
 import com.vangroenheesch.supermarket_checkout.domain.model.Product;
 import com.vangroenheesch.supermarket_checkout.domain.port.OfferRepositoryPort;
 import com.vangroenheesch.supermarket_checkout.domain.port.ProductRepositoryPort;
-import java.math.BigDecimal;
-import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

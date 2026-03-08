@@ -24,7 +24,7 @@ class ProductController {
 
   @GetMapping
   ResponseEntity<List<ProductResponse>> getProducts() {
-    var products =
+    List<ProductResponse> products =
         getProductCatalog.getProductCatalog().stream().map(ProductResponse::from).toList();
     return ResponseEntity.ok()
         .cacheControl(CacheControl.maxAge(MAX_AGE).cachePublic())

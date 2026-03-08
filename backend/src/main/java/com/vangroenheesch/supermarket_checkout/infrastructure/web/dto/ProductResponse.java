@@ -1,8 +1,9 @@
 package com.vangroenheesch.supermarket_checkout.infrastructure.web.dto;
 
+import module java.base;
+
 import com.vangroenheesch.supermarket_checkout.application.product.ProductWithOfferDto;
 import com.vangroenheesch.supermarket_checkout.domain.model.Offer;
-import java.math.BigDecimal;
 
 /**
  * Response object of a product

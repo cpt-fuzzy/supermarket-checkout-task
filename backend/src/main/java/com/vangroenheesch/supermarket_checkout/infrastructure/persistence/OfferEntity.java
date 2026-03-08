@@ -1,8 +1,9 @@
 package com.vangroenheesch.supermarket_checkout.infrastructure.persistence;
 
+import module java.base;
+
 import com.vangroenheesch.supermarket_checkout.domain.model.Offer;
 import jakarta.persistence.*;
-import java.math.BigDecimal;
 
 @Entity
 @Table(name = "offers")
