@@ -6,25 +6,25 @@ import com.vangroenheesch.supermarket_checkout.domain.model.Offer;
 
 public interface OfferRepositoryPort {
   /**
-   * Finds an active offer by id
+   * Finds an offer by id
    *
    * @param id offer identifier
    * @return the offer, or empty if not found
    */
-  Optional<Offer> findActiveOfferById(String id);
+  Optional<Offer> findById(String id);
 
   /**
-   * Finds an active offer by productSku
+   * Finds an offer by productSku
    *
    * @param productSku SKU of the product
    * @return the offer, or empty if not found
    */
-  Optional<Offer> findActiveOfferByProductSku(String productSku);
+  Optional<Offer> findByProductSku(String productSku);
 
   /**
-   * Finds all active offers
+   * Finds all offers
    *
-   * @return all active offers
+   * @return all offers
    */
-  List<Offer> findAllActiveOffers();
+  List<Offer> findAll();
 }
