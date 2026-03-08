@@ -1,5 +1,7 @@
 package com.vangroenheesch.supermarket_checkout.domain.model;
 
+import com.vangroenheesch.supermarket_checkout.domain.exception.DomainValidationException;
+
 /**
  * Individual item in a shopping cart
  *
@@ -9,7 +11,7 @@ package com.vangroenheesch.supermarket_checkout.domain.model;
 public record CartItem(String productSku, int quantity) {
   public CartItem {
     if (productSku == null || productSku.isBlank())
-      throw new IllegalArgumentException("Product SKU must not be empty");
-    if (quantity < 1) throw new IllegalArgumentException("Quantity must not be less than 1");
+      throw new DomainValidationException("Product SKU must not be empty");
+    if (quantity < 1) throw new DomainValidationException("Quantity must not be less than 1");
   }
 }

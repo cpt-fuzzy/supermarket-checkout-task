@@ -1,6 +1,7 @@
 package com.vangroenheesch.supermarket_checkout.infrastructure.persistence;
 
 import com.vangroenheesch.supermarket_checkout.domain.model.Product;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -8,10 +9,12 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "products")
-public class ProductEntity {
+class ProductEntity {
 
   @Id private String sku;
   private String name;
+
+  @Column(precision = 10, scale = 2)
   private BigDecimal price;
 
   protected ProductEntity() {}

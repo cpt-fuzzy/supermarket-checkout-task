@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import module java.base;
 
+import com.vangroenheesch.supermarket_checkout.domain.exception.DomainValidationException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -34,21 +35,21 @@ class ReceiptTest {
   @Test
   void rejectsNullLines() {
     assertThrows(
-        IllegalArgumentException.class,
+        DomainValidationException.class,
         () -> new Receipt(null, new BigDecimal("0.60"), BigDecimal.ZERO));
   }
 
   @Test
   void rejectsNegativeTotal() {
     assertThrows(
-        IllegalArgumentException.class,
+        DomainValidationException.class,
         () -> new Receipt(List.of(LINE_MOCK), new BigDecimal("-1"), BigDecimal.ZERO));
   }
 
   @Test
   void rejectsNegativeSaved() {
     assertThrows(
-        IllegalArgumentException.class,
+        DomainValidationException.class,
         () -> new Receipt(List.of(LINE_MOCK), new BigDecimal("0.60"), new BigDecimal("-1")));
   }
 }

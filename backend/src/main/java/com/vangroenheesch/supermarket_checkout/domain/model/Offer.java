@@ -2,6 +2,8 @@ package com.vangroenheesch.supermarket_checkout.domain.model;
 
 import module java.base;
 
+import com.vangroenheesch.supermarket_checkout.domain.exception.DomainValidationException;
+
 /**
  * A weekly promotional offer
  *
@@ -18,12 +20,12 @@ public record Offer(
   }
 
   public Offer {
-    if (id == null || id.isBlank()) throw new IllegalArgumentException("ID must not be empty");
+    if (id == null || id.isBlank()) throw new DomainValidationException("ID must not be empty");
     if (productSku == null || productSku.isBlank())
-      throw new IllegalArgumentException("Product SKU must not be null");
-    if (type == null) throw new IllegalArgumentException("Type must not be null");
-    if (requiredQuantity <= 1) throw new IllegalArgumentException("Quantity must be at least 2");
+      throw new DomainValidationException("Product SKU must not be null");
+    if (type == null) throw new DomainValidationException("Type must not be null");
+    if (requiredQuantity <= 1) throw new DomainValidationException("Quantity must be at least 2");
     if (offerPrice == null || offerPrice.compareTo(BigDecimal.ZERO) < 0)
-      throw new IllegalArgumentException("Offer price must be non-negative");
+      throw new DomainValidationException("Offer price must be non-negative");
   }
 }

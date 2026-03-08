@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "offers")
-public class OfferEntity {
+class OfferEntity {
 
   @Id private String id;
   private String productSku;
@@ -15,6 +15,8 @@ public class OfferEntity {
   private Offer.OfferType type;
 
   private int requiredQuantity;
+
+  @Column(precision = 10, scale = 2)
   private BigDecimal offerPrice;
 
   protected OfferEntity() {}

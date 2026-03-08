@@ -2,6 +2,8 @@ package com.vangroenheesch.supermarket_checkout.domain.model;
 
 import module java.base;
 
+import com.vangroenheesch.supermarket_checkout.domain.exception.DomainValidationException;
+
 /**
  * Result of a checkout calculation. Contains individual line items
  *
@@ -11,11 +13,11 @@ import module java.base;
  */
 public record Receipt(List<ReceiptLine> lines, BigDecimal total, BigDecimal saved) {
   public Receipt {
-    if (lines == null) throw new IllegalArgumentException("Receipt lines must not be null");
+    if (lines == null) throw new DomainValidationException("Receipt lines must not be null");
     if (total == null || total.compareTo(BigDecimal.ZERO) < 0)
-      throw new IllegalArgumentException("Total must not be non-negative");
+      throw new DomainValidationException("Total must not be non-negative");
     if (saved == null || saved.compareTo(BigDecimal.ZERO) < 0)
-      throw new IllegalArgumentException("Saved must not be non-negative");
+      throw new DomainValidationException("Saved must not be non-negative");
 
     lines = List.copyOf(lines);
   }

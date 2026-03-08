@@ -1,4 +1,4 @@
-package com.vangroenheesch.supermarket_checkout.domain.service;
+package com.vangroenheesch.supermarket_checkout.domain.exception;
 
 /** Throw when a cart references a product SKU that does not exist */
 public class ProductNotFoundException extends RuntimeException {

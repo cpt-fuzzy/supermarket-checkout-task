@@ -6,6 +6,7 @@ import com.vangroenheesch.supermarket_checkout.domain.model.Offer;
 import com.vangroenheesch.supermarket_checkout.domain.model.Product;
 import com.vangroenheesch.supermarket_checkout.domain.port.OfferRepositoryPort;
 import com.vangroenheesch.supermarket_checkout.domain.port.ProductRepositoryPort;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -21,6 +22,7 @@ class GetProductCatalogHandler implements GetProductCatalogUseCase {
   }
 
   @Override
+  @Cacheable("productCatalog")
   public List<ProductWithOfferDto> getProductCatalog() {
     List<Product> products = productRepository.findAll();
     Map<String, Offer> offersByProductSku =

@@ -2,6 +2,8 @@ package com.vangroenheesch.supermarket_checkout.domain.service;
 
 import module java.base;
 
+import com.vangroenheesch.supermarket_checkout.domain.exception.DomainValidationException;
+import com.vangroenheesch.supermarket_checkout.domain.exception.ProductNotFoundException;
 import com.vangroenheesch.supermarket_checkout.domain.model.*;
 
 // TODO: Think about refactoring as a @Service component
@@ -17,8 +19,13 @@ public class PricingService {
    */
   public Receipt calculateReceipt(
       Cart cart, Map<String, Product> productsBySku, Map<String, Offer> offersByProductSku) {
+
+    Objects.requireNonNull(cart, "Cart must not be null");
+    Objects.requireNonNull(productsBySku, "Products map must not be null");
+    Objects.requireNonNull(offersByProductSku, "Offers map must not be null");
+
     if (cart.isEmpty()) {
-      throw new IllegalArgumentException("Cart must not be empty");
+      throw new DomainValidationException("Cart must not be empty");
     }
 
     List<ReceiptLine> lines = new ArrayList<>();

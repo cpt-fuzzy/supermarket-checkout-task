@@ -3,6 +3,7 @@ package com.vangroenheesch.supermarket_checkout.domain.model;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Named.named;
 
+import com.vangroenheesch.supermarket_checkout.domain.exception.DomainValidationException;
 import java.math.BigDecimal;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
@@ -52,7 +53,7 @@ class ReceiptLineTest {
   @ParameterizedTest
   @MethodSource("invalidReceiptLines")
   void rejectsInvalidConstructorArguments(Executable constructor) {
-    assertThrows(IllegalArgumentException.class, constructor);
+    assertThrows(DomainValidationException.class, constructor);
   }
 
   static Stream<Arguments> invalidReceiptLines() {

@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Named.named;
 
 import module java.base;
 
+import com.vangroenheesch.supermarket_checkout.domain.exception.DomainValidationException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
@@ -30,7 +31,7 @@ class OfferTest {
   @ParameterizedTest
   @MethodSource("invalidOffers")
   void rejectsInvalidConstructorArguments(Executable constructor) {
-    assertThrows(IllegalArgumentException.class, constructor);
+    assertThrows(DomainValidationException.class, constructor);
   }
 
   static Stream<Arguments> invalidOffers() {

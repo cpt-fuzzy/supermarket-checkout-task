@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import module java.base;
 
+import com.vangroenheesch.supermarket_checkout.domain.exception.DomainValidationException;
+import com.vangroenheesch.supermarket_checkout.domain.exception.ProductNotFoundException;
 import com.vangroenheesch.supermarket_checkout.domain.model.Cart;
 import com.vangroenheesch.supermarket_checkout.domain.model.CartItem;
 import com.vangroenheesch.supermarket_checkout.domain.model.Offer;
@@ -159,7 +161,7 @@ class PricingServiceTest {
       var cart = new Cart(List.of());
 
       assertThrows(
-          IllegalArgumentException.class,
+          DomainValidationException.class,
           () -> pricingService.calculateReceipt(cart, ALL_PRODUCTS, ALL_OFFERS));
     }
 

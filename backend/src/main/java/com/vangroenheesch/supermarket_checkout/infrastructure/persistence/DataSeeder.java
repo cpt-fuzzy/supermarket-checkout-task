@@ -1,10 +1,7 @@
-package com.vangroenheesch.supermarket_checkout.infrastructure.config;
+package com.vangroenheesch.supermarket_checkout.infrastructure.persistence;
 
 import com.vangroenheesch.supermarket_checkout.domain.model.Offer;
-import com.vangroenheesch.supermarket_checkout.infrastructure.persistence.JpaOfferRepository;
-import com.vangroenheesch.supermarket_checkout.infrastructure.persistence.JpaProductRepository;
-import com.vangroenheesch.supermarket_checkout.infrastructure.persistence.OfferEntity;
-import com.vangroenheesch.supermarket_checkout.infrastructure.persistence.ProductEntity;
+import jakarta.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.List;
 import org.springframework.boot.CommandLineRunner;
@@ -22,7 +19,11 @@ class DataSeeder implements CommandLineRunner {
   }
 
   @Override
+  @Transactional
   public void run(String... args) {
+    if (productRepository.count() > 0) {
+      return;
+    }
     productRepository.saveAll(
         List.of(
             new ProductEntity("apple", "Apple", new BigDecimal("0.30")),
@@ -30,6 +31,10 @@ class DataSeeder implements CommandLineRunner {
             new ProductEntity("orange", "Orange", new BigDecimal("0.60")),
             new ProductEntity("milk", "Milk", new BigDecimal("1.20")),
             new ProductEntity("bread", "Bread", new BigDecimal("0.80"))));
+
+    if (offerRepository.count() > 0) {
+      return;
+    }
 
     offerRepository.saveAll(
         List.of(

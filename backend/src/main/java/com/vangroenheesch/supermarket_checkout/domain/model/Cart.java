@@ -2,6 +2,8 @@ package com.vangroenheesch.supermarket_checkout.domain.model;
 
 import module java.base;
 
+import com.vangroenheesch.supermarket_checkout.domain.exception.DomainValidationException;
+
 /**
  * A shopping cart containing items
  *
@@ -9,7 +11,9 @@ import module java.base;
  */
 public record Cart(List<CartItem> items) {
   public Cart {
-    if (items == null) throw new IllegalArgumentException("Items must not be empty");
+    if (items == null) throw new DomainValidationException("Items must not be null");
+
+    items = List.copyOf(items);
   }
 
   /**
