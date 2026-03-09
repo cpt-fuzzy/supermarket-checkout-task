@@ -42,15 +42,43 @@ The backend follows **Clean Architecture + DDD + Hexagonal (Ports & Adapters)**.
 ```
 backend/src/main/java/com/vangroenheesch/
 ├── domain/
+│   ├── exception/   # Domain exceptions (DomainValidationException)
 │   ├── model/       # Pure Java records (Product, Cart, Offer, Receipt, ...)
 │   ├── port/        # Driven port interfaces (ProductRepositoryPort, OfferRepositoryPort)
 │   └── service/     # Domain service (PricingService — pure calculation, no I/O)
 ├── application/     # Use cases + handlers (orchestrate ports and domain service)
 └── infrastructure/
-    ├── persistence/  # JPA entities, Spring Data repos, port adapters
+    ├── persistence/  # JPA entities, Spring Data repos, port adapters, data seeding
     ├── web/          # REST controllers, DTOs, exception handler
-    └── config/       # CORS, data seeding
+    └── config/       # CORS, caching, SPA fallback
 ```
+
+## AI Disclosure
+
+This project was built collaboratively with an AI coding agent (Claude Code proxied through OpenCode). Models used: **Claude Opus 4.6** and **Claude Sonnet 4.6**, with **Qwen2.5-coder-instruct-7b** run as local model through Ollama for small tasks. The collaboration followed a structured, deliberate process.
+
+### How we worked
+
+Every change followed a consistent cycle: **discuss options → agree on a plan → implement → verify**. I set direction, made architectural decisions, and reviewed tradeoffs. The agent researched the codebase, proposed concrete options with pros and cons, and implemented the agreed-upon approach.
+
+### Agent skills
+
+The agent was augmented with 11 project-specific skills (`.agents/skills/`) that provide domain knowledge, best practices, and reference documentation. These skills are loaded on demand when a task matches their domain:
+
+- **Architecture**: `clean-ddd-hexagonal` — Clean Architecture, DDD, and Hexagonal patterns
+- **Backend**: `java-springboot`, `java-junit`, `java-docs` — Spring Boot conventions, JUnit 5 testing, Javadoc standards
+- **Frontend**: `angular-component`, `angular-signals`, `angular-http`, `angular-di`, `angular-directives`, `angular-testing`, `angular-tooling` — Angular 21 best practices across components, state management, HTTP, dependency injection, directives, testing, and CLI tooling
+
+### What the agent did not do
+
+- Make architectural decisions unilaterally
+- Generate code without a reviewed plan
+- Skip verification (every Docker change was build-tested, every Java change was compile-checked)
+- "Improve" code that wasn't part of the task
+
+### Coding guidelines
+
+The `AGENTS.md` file and `docs/` directory contain the coding principles and conventions that govern both my own and AI contributions. These guidelines were co-developed during the project and enforced through CI (Spotless, ESLint, Prettier) and architecture tests (ArchUnit).
 
 ## Prerequisites
 
@@ -91,14 +119,7 @@ docker compose restart
 ### With Docker (production build)
 
 ```sh
-# Build and run the optimized production image
 docker compose --profile prod up backend-prod
-```
-
-### Docker Production
-
-```sh
-docker compose --profile prod up --build backend-prod
 ```
 
 App available at `http://localhost:8080` (backend serves the Angular SPA)
@@ -127,21 +148,30 @@ App available at `http://localhost:8080` (backend serves the Angular SPA)
 
 ## CI
 
-GitHub Actions runs on push and pull requests to 'main':
+A single GitHub Actions workflo (`ci.yml`) runs on pushes to
+`main` and `feature/**` branches, and on pull requests to `main`.
+It contains three parallel jobs:
 
-### Backend (`backend-ci.yml`)
+### Backend
 
 1. **Check formatting** - Spotless (google-java-format)
 2. **Run tests** - JUnit5 + ArchUnit
 3. **Build** - compile and package the boot JAR
 
-### Frontend (`frontend-ci.yml`)
+### Frontend
 
 1. **Lint** - ESLint
 2. **Check formatting** - Prettier
 3. **Run tests** - vitest
 4. **Build** - production bundle
 
+### Docker
+
+Runs only on main, after both Backend and Frontend pass:
+
+1. **Build production image** - multi-stage Docker build targeting
+the `production` stage, with GitHub Actions build cache
+2. 
 ## API
 
 | Endpoint | Method | Description |
