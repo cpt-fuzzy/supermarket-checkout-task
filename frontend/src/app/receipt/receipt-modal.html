@@ -1,0 +1,61 @@
+<div
+  #receiptPopover
+  id="receipt-popover"
+  popover="auto"
+  class="receipt"
+  role="document"
+  aria-label="Receipt"
+>
+  @if (receipt(); as r) {
+    <h2 class="receipt-title">Receipt</h2>
+
+    <table class="receipt-table" aria-label="Receipt line items">
+      <thead>
+        <tr>
+          <th scope="col">Item</th>
+          <th scope="col">Qty</th>
+          <th scope="col">Unit</th>
+          <th scope="col">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (line of r.lines; track line.productName) {
+          <tr>
+            <td>
+              {{ line.productName }}
+              @if (line.offerDescription) {
+                <span class="receipt-offer">{{ line.offerDescription }}</span>
+              }
+            </td>
+            <td class="numeric">{{ line.quantity }}</td>
+            <td class="numeric">{{ line.unitPrice | currency: 'EUR' }}</td>
+            <td class="numeric">{{ line.lineTotal | currency: 'EUR' }}</td>
+          </tr>
+          @if (line.lineSaved > 0) {
+            <tr class="savings-row">
+              <td colspan="3">Saved</td>
+              <td class="numeric saved">&minus;{{ line.lineSaved | currency: 'EUR' }}</td>
+            </tr>
+          }
+        }
+      </tbody>
+    </table>
+
+    <div class="receipt-footer">
+      <div class="receipt-total">
+        <span>Total</span>
+        <span>{{ r.total | currency: 'EUR' }}</span>
+      </div>
+      @if (r.saved > 0) {
+        <div class="receipt-saved">
+          <span>You saved</span>
+          <span> {{ r.saved | currency: 'EUR' }}</span>
+        </div>
+      }
+    </div>
+
+    <button class="close-btn" popovertarget="receipt-popover" popovertargetaction="hide">
+      Continue Shopping
+    </button>
+  }
+</div>

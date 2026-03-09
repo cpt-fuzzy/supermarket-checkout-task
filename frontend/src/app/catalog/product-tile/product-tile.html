@@ -1,0 +1,29 @@
+<div class="tile-header">
+  <img ngSrc="/images/apple.svg" width="32" height="32" alt="Apple" />
+  <h3 class="product-name">{{ product().name }}</h3>
+
+  @if (product().offer; as offer) {
+    <span class="offer-badge">{{ offer.description }}</span>
+  }
+</div>
+
+<p class="product-price">{{ product().price | currency: 'EUR' }}</p>
+
+<div class="tile-actions">
+  <button
+    class="qty-btn"
+    [attr.aria-label]="'Remove one ' + product().name + ' from cart'"
+    [disabled]="quantity() === 0"
+    (click)="removeFromCart()"
+  >
+    &minus;
+  </button>
+  <span class="qty-value" aria-live="polite">{{ quantity() }}</span>
+  <button
+    class="qty-btn"
+    [attr.aria-label]="'Add one ' + product().name + ' to cart'"
+    (click)="addToCart()"
+  >
+    +
+  </button>
+</div>

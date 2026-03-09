@@ -1,0 +1,40 @@
+<h2 class="cart-title">
+  Cart
+  @if (!isEmpty()) {
+    <span class="cart-count">{{ itemCount() }}</span>
+  }
+</h2>
+
+@if (isEmpty()) {
+  <p class="cart-empty">Your cart is empty.</p>
+} @else {
+  <ul class="cart-items" aria-label="Cart items">
+    @for (item of items(); track item.productSku) {
+      <li class="cart-item">
+        <span class="cart-item-name">{{ item.productName }}</span>
+        <span class="cart-item-detail">
+          {{ item.quantity }} &times; {{ item.unitPrice | currency: 'EUR' }}
+        </span>
+      </li>
+    }
+  </ul>
+
+  <div class="cart-summary">
+    <div class="cart-subtotal">
+      <span>Subtotal</span>
+      <span>{{ subtotal() | currency: 'EUR' }}</span>
+    </div>
+
+    @if (checkoutError(); as error) {
+      <p class="cart-error" role="alert">{{ error }}</p>
+    }
+
+    <button class="checkout-btn" [disabled]="checkingOut()" (click)="checkout()">
+      @if (checkingOut()) {
+        Processing&hellip;
+      } @else {
+        Checkout
+      }
+    </button>
+  </div>
+}

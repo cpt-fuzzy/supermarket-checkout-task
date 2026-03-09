@@ -25,7 +25,6 @@ A full-stack supermarket checkout system.
 |---|---|---|
 | Angular | 21.2 | UI framework (standalone components, signals, OnPush) |
 | TypeScript | 5.9 | Language |
-| Tailwind CSS | 4.1 | Utility-first styling |
 | Vitest | 4.0 | Unit testing |
 
 ### Infrastructure
@@ -57,19 +56,36 @@ backend/src/main/java/com/vangroenheesch/
 
 - **Docker** and **Docker Compose** (for containerized development)
 - **JDK 25** (only if running outside Docker — Gradle auto-provisions via foojay toolchain resolver)
-- **Node.js 22+** and **bun** (for frontend development)
+- **Bun** (for frontend development)
 
 ## Running the Application
+
+### Local Development
+
+```sh
+# Terminal 1
+./gradlew :backend:bootRun
+
+# Terminal 2
+cd frontend
+bun install
+bun run start
+```
+
+- Backend: `http://localhost:8080`
+- Frontend `http://localhost:4200` (proxies /api to backend)
 
 ### With Docker (recommended)
 
 ```sh
 # Build and start the backend in dev mode
-docker compose up backend-dev
+docker compose up --build
 
-# The app is available at http://localhost:8080
+- Backend: `http://localhost:8080`
+- Frontend `http://localhost:4200` (proxies /api to backend)
+
 # Restart the container to pick up source code changes:
-docker compose restart backend-dev
+docker compose restart
 ```
 
 ### With Docker (production build)
@@ -79,18 +95,13 @@ docker compose restart backend-dev
 docker compose --profile prod up backend-prod
 ```
 
-### Without Docker
+### Docker Production
 
 ```sh
-# Backend
-./gradlew :backend:bootRun
-
-# Frontend (in a separate terminal)
-cd frontend
-bun install
-bun run start
-# Available at http://localhost:4200
+docker compose --profile prod up --build backend-prod
 ```
+
+App available at `http://localhost:8080` (backend serves the Angular SPA)
 
 ## Build Commands
 
@@ -113,6 +124,23 @@ bun run start
 | `bun run start` | Start the dev server (`http://localhost:4200`) |
 | `bun run test`  | Run all tests |
 | `bun run build` | Production build |
+
+## CI
+
+GitHub Actions runs on push and pull requests to 'main':
+
+### Backend (`backend-ci.yml`)
+
+1. **Check formatting** - Spotless (google-java-format)
+2. **Run tests** - JUnit5 + ArchUnit
+3. **Build** - compile and package the boot JAR
+
+### Frontend (`frontend-ci.yml`)
+
+1. **Lint** - ESLint
+2. **Check formatting** - Prettier
+3. **Run tests** - vitest
+4. **Build** - production bundle
 
 ## API
 

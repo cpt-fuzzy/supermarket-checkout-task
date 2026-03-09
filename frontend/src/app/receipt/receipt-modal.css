@@ -1,0 +1,102 @@
+.receipt:popover-open {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.receipt-title {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  margin: 0;
+}
+
+.receipt-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+
+  th,
+  td {
+    padding: var(--space-sm) var(--space-sm);
+    text-align: left;
+  }
+
+  th {
+    font-weight: 600;
+    border-bottom: 2px solid var(--border);
+    color: var(--text-muted);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+  }
+
+  td {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .numeric {
+    text-align: left;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.receipt-offer {
+  display: block;
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+.savings-row td {
+  font-size: var(--text-xs);
+  color: var(--success);
+  border-bottom: none;
+  padding-top: 0;
+}
+
+.saved {
+  font-weight: 600;
+}
+
+.receipt-footer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding-top: var(--space-sm);
+  border-top: 2px solid var(--border);
+}
+
+.receipt-total {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-lg);
+  font-weight: 700;
+}
+
+.receipt-saved {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-sm);
+  color: var(--success);
+  font-weight: 600;
+}
+
+.close-btn {
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--brand);
+  background: var(--brand-light);
+  border-radius: var(--radius-sm);
+  transition: background var(--transition-fast);
+
+  &:hover {
+    background: var(--brand);
+    color: #fff;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
+  }
+}

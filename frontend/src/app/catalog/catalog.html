@@ -1,0 +1,15 @@
+<h2 class="catalog-title">Products</h2>
+
+@if (products.isLoading()) {
+  <p class="catalog-status">Loading products&hellip</p>
+} @else if (products.error()) {
+  <p class="catalog-status catalog-error">Failed to load products. Please try again later.</p>
+} @else {
+  <div class="product-grid">
+    @for (product of products.value(); track product.sku) {
+      <app-product-tile [product]="product" />
+    } @empty {
+      <p class="catalog-status">No products available.</p>
+    }
+  </div>
+}

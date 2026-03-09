@@ -10,6 +10,20 @@ services:
       - .:/app
       - gradle-cache:/root/.gradle
 
+  frontend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+      target: frontend-dev
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./frontend:/app
+      - node_modules:/app/frontend/node_modules
+    command: sh -c "bun install && bun run ng serve --host 0.0.0.0 --proxy-config proxy.conf.docker.json"
+    depends_on:
+      - backend
+
   backend-prod:
     build:
       context: .
@@ -22,3 +36,4 @@ services:
 
 volumes:
   gradle-cache:
+  node_modules:
