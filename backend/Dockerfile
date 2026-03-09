@@ -24,7 +24,7 @@ CMD ["./gradlew", ":backend:bootRun", "--no-daemon"]
 
 FROM base AS build
 COPY backend/src/ backend/src/
-COPY --from=frontend /app/frontend/dist/frontend/browser backend/src/main/resources/static
+COPY --from=frontend-builder /app/frontend/dist/frontend/browser backend/src/main/resources/static
 RUN ./gradlew :backend:bootJar --no-daemon
 RUN java -Djarmode=tools -jar $(ls backend/build/libs/*.jar | grep -v plain) extract --destination backend/extracted
 
