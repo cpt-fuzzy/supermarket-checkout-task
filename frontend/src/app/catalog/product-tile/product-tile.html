@@ -1,6 +1,8 @@
 <div class="tile-header">
-  <img ngSrc="/images/apple.svg" width="32" height="32" alt="Apple" />
-  <h3 class="product-name">{{ product().name }}</h3>
+  <h3 class="product-name">
+    <img [ngSrc]="`/images/${product().sku}.svg`" width="32" height="32" alt="Apple" />
+    {{ product().name }}
+  </h3>
 
   @if (product().offer; as offer) {
     <span class="offer-badge">{{ offer.description }}</span>

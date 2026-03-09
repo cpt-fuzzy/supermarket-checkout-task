@@ -20,6 +20,9 @@
 }
 
 .product-name {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: center;
   font-size: var(--text-lg);
   font-weight: 600;
   margin: 0;
