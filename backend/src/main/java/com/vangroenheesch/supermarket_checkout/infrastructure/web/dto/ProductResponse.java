@@ -25,7 +25,7 @@ public record ProductResponse(String sku, String name, BigDecimal price, OfferIn
           new OfferInfo(
               offer.requiredQuantity(),
               offer.offerPrice(),
-              offer.requiredQuantity() + " for " + offer.offerPrice());
+              offer.requiredQuantity() + " for €" + offer.offerPrice());
     }
     return new ProductResponse(
         dto.product().sku(), dto.product().name(), dto.product().price(), offerInfo);

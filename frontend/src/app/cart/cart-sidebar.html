@@ -15,6 +15,9 @@
         <span class="cart-item-detail">
           {{ item.quantity }} &times; {{ item.unitPrice | currency: 'EUR' }}
         </span>
+        @if (item.offer && item.quantity >= item.offer.requiredQuantity) {
+          <span class="cart-item-offer">{{ item.offer.offerDescription }}</span>
+        }
       </li>
     }
   </ul>

@@ -48,6 +48,12 @@ export class CartService {
           productName: product.name,
           unitPrice: product.price,
           quantity: 1,
+          offer: product.offer
+            ? {
+                requiredQuantity: product.offer.requiredQuantity,
+                offerDescription: product.offer.description,
+              }
+            : null,
         },
       ];
     });

@@ -15,4 +15,18 @@ describe('App', () => {
     const fixture = TestBed.createComponent(App);
     expect(fixture.componentInstance).toBeTruthy();
   });
+
+  it('should render the app header', () => {
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+    const heading = fixture.nativeElement.querySelector('.app-title');
+    expect(heading?.textContent).toContain('My little supermarket');
+  });
+
+  it('should contain the catalog and cart sidebar', () => {
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('app-catalog')).toBeTruthy();
+    expect(fixture.nativeElement.querySelector('app-cart-sidebar')).toBeTruthy();
+  });
 });
