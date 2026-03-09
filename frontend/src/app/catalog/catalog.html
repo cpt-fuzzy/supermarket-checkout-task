@@ -3,7 +3,10 @@
 @if (products.isLoading()) {
   <p class="catalog-status">Loading products&hellip</p>
 } @else if (products.error()) {
-  <p class="catalog-status catalog-error">Failed to load products. Please try again later.</p>
+  <div class="catalog-error-container">
+    <p class="catalog-status catalog-error">Failed to load products.</p>
+    <button class="retry-btn" (click)="products.reload()">Try again</button>
+  </div>
 } @else {
   <div class="product-grid">
     @for (product of products.value(); track product.sku) {

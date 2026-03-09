@@ -34,7 +34,7 @@
   padding: var(--space-xs) var(--space-sm);
   font-size: var(--text-xs);
   font-weight: 600;
-  color: #fff;
+  color: light-dark(oklch(0.3 0.1 145), #fff);
   background: var(--success-light);
   border-radius: var(--radius-full);
 }

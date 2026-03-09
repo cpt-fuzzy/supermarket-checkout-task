@@ -16,7 +16,8 @@ function loadFromStorage(): CartItem[] {
 
 @Injectable({ providedIn: 'root' })
 export class CartService {
-  readonly items = signal<CartItem[]>(loadFromStorage());
+  private readonly _items = signal<CartItem[]>(loadFromStorage());
+  readonly items = this._items.asReadonly();
 
   readonly itemCount = computed(() => this.items().reduce((sum, item) => sum + item.quantity, 0));
 
@@ -33,8 +34,7 @@ export class CartService {
   }
 
   addOne(product: Product): void {
-    console.log(product);
-    this.items.update((items) => {
+    this._items.update((items) => {
       const existing = items.find((i) => i.productSku === product.sku);
       if (existing) {
         return items.map((i) =>
@@ -54,7 +54,7 @@ export class CartService {
   }
 
   removeOne(productSku: string): void {
-    this.items.update((items) => {
+    this._items.update((items) => {
       const existing = items.find((i) => i.productSku === productSku);
       if (!existing) return items;
       if (existing.quantity <= 1) {
@@ -67,6 +67,6 @@ export class CartService {
   }
 
   clear(): void {
-    this.items.set([]);
+    this._items.set([]);
   }
 }

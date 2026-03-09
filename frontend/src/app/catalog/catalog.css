@@ -19,6 +19,33 @@
   font-size: var(--text-lg);
 }
 
+.catalog-error-container {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+  gap: var(--space-sm);
+}
+
 .catalog-error {
   color: var(--danger);
+}
+
+.retry-btn {
+  padding: var(--space-xs) var(--space-md);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--danger);
+  background: var(--danger-light);
+  border-radius: var(--radius-sm);
+  transition: background var(--transition-fast);
+
+  &:hover {
+    background: var(--danger);
+    color: #fff;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--danger);
+    outline-offset: 2px;
+  }
 }
